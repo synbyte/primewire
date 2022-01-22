@@ -1,23 +1,11 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
+import scrapy
 
-chrome_options = Options()
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
+class SpiderOne(scrapy.Spider):
+	name = 'spiderone'
+	start_urls = ['https://zyte.com/blog/']
 
-driver = webdriver.Chrome(options=chrome_options)
-driver.get("https://primewire.mx")
-query = input("search for..\n")
-elem = driver.find_element(By.CLASS_NAME, "search-input")
-elem.clear()
-id = "11239"
-elem.send_keys(query)
-elem.send_keys(Keys.RETURN)
-elem = driver.find_element(By.CLASS_NAME,"film-name").click()
-elem = driver.find_element(By.CLASS_NAME,"active")
-id = elem.get_attribute("data-id")
-print(id)
-
-elem.send_keys(Keys.RETURN)
+	def parse(self, response):
+		for title in response.css('.oxy-post-title'):
+			yield {'title': title.css('::text').get()}
+		for next_page in response.css('a.next'):
+			yield response.follow(next_page, self.parse)
