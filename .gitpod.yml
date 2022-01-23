@@ -6,4 +6,5 @@ tasks:
 - init: poetry install
 - init : docker pull siegfried415/portia-dashboard
 - command: docker run -v ~/portia_projects:/app/data/projects:rw -p 9001:9001 siegfried415/portia-dashboard start-dev 
-
+- command: pip install poetry && poetry install
+  
