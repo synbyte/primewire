@@ -2,6 +2,7 @@ ports:
 - port: 9001
 - port: 8080
 tasks:
+- init: pip install poetry
 - init: poetry install
 - init : docker pull siegfried415/portia-dashboard
 - command: docker run -v ~/portia_projects:/app/data/projects:rw -p 9001:9001 siegfried415/portia-dashboard start-dev 
