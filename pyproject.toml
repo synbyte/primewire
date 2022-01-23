@@ -8,6 +8,7 @@ authors = ["Your Name <you@example.com>"]
 python = "^3.8"
 selenium = "^4.1.0"
 Scrapy3 = "^1.0.1"
+Scrapy = "^2.5.1"
 
 [tool.poetry.dev-dependencies]
 
